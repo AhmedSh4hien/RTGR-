@@ -1,0 +1,10 @@
+^D:\IM\RTGR\RTGR\BUILD\CMAKEFILES\3DAA3CE8BB04FB35A89C84D7F7179E7D\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/IM/RTGR/RTGR -BD:/IM/RTGR/RTGR/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/IM/RTGR/RTGR/build/RTG1.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
