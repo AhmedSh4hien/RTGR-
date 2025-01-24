@@ -22,12 +22,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{7EA89C2A-7DBA-3DF7-8E79-805E1408596B}</ProjectGuid>
+    <ProjectGuid>{0885FC86-F5BE-3C49-BE51-B9916BD4C0E7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <VcpkgEnabled>false</VcpkgEnabled>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
-    <ProjectName>exercise1</ProjectName>
+    <ProjectName>exercise3</ProjectName>
     <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -61,29 +61,29 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\IM\RTGR\RTGR\bin\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">exercise1.dir\Debug\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">exercise1</TargetName>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">exercise3.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">exercise3</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
     <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/IM/RTGR/RTGR/bin/</LocalDebuggerWorkingDirectory>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\IM\RTGR\RTGR\bin\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">exercise1.dir\Release\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">exercise1</TargetName>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">exercise3.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">exercise3</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
     <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/IM/RTGR/RTGR/bin/</LocalDebuggerWorkingDirectory>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\IM\RTGR\RTGR\bin\MinSizeRel\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">exercise1.dir\MinSizeRel\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">exercise1</TargetName>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">exercise3.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">exercise3</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
     <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/IM/RTGR/RTGR/bin/</LocalDebuggerWorkingDirectory>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\IM\RTGR\RTGR\bin\RelWithDebInfo\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">exercise1.dir\RelWithDebInfo\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">exercise1</TargetName>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">exercise3.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">exercise3</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
@@ -127,7 +127,7 @@
     <PostBuildEvent>
       <Message></Message>
       <Command>setlocal
-C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/ahmed/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/IM/RTGR/RTGR/bin/exercise1.exe -installedDir C:/Users/ahmed/vcpkg/installed/x64-windows/debug/bin -OutVariable out
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/ahmed/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/IM/RTGR/RTGR/bin/exercise3.exe -installedDir C:/Users/ahmed/vcpkg/installed/x64-windows/debug/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -142,8 +142,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>D:/IM/RTGR/RTGR/build/Debug/exercise1.lib</ImportLibrary>
-      <ProgramDataBaseFile>D:/IM/RTGR/RTGR/bin/exercise1.pdb</ProgramDataBaseFile>
+      <ImportLibrary>D:/IM/RTGR/RTGR/build/Debug/exercise3.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/IM/RTGR/RTGR/bin/exercise3.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -189,7 +189,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <PostBuildEvent>
       <Message></Message>
       <Command>setlocal
-C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/ahmed/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/IM/RTGR/RTGR/bin/exercise1.exe -installedDir C:/Users/ahmed/vcpkg/installed/x64-windows/bin -OutVariable out
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/ahmed/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/IM/RTGR/RTGR/bin/exercise3.exe -installedDir C:/Users/ahmed/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -204,8 +204,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>D:/IM/RTGR/RTGR/build/Release/exercise1.lib</ImportLibrary>
-      <ProgramDataBaseFile>D:/IM/RTGR/RTGR/bin/exercise1.pdb</ProgramDataBaseFile>
+      <ImportLibrary>D:/IM/RTGR/RTGR/build/Release/exercise3.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/IM/RTGR/RTGR/bin/exercise3.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -251,7 +251,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <PostBuildEvent>
       <Message></Message>
       <Command>setlocal
-C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/ahmed/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/IM/RTGR/RTGR/bin/MinSizeRel/exercise1.exe -installedDir C:/Users/ahmed/vcpkg/installed/x64-windows/bin -OutVariable out
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/ahmed/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/IM/RTGR/RTGR/bin/MinSizeRel/exercise3.exe -installedDir C:/Users/ahmed/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -266,8 +266,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>D:/IM/RTGR/RTGR/build/MinSizeRel/exercise1.lib</ImportLibrary>
-      <ProgramDataBaseFile>D:/IM/RTGR/RTGR/bin/MinSizeRel/exercise1.pdb</ProgramDataBaseFile>
+      <ImportLibrary>D:/IM/RTGR/RTGR/build/MinSizeRel/exercise3.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/IM/RTGR/RTGR/bin/MinSizeRel/exercise3.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -312,7 +312,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <PostBuildEvent>
       <Message></Message>
       <Command>setlocal
-C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/ahmed/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/IM/RTGR/RTGR/bin/RelWithDebInfo/exercise1.exe -installedDir C:/Users/ahmed/vcpkg/installed/x64-windows/bin -OutVariable out
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/ahmed/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/IM/RTGR/RTGR/bin/RelWithDebInfo/exercise3.exe -installedDir C:/Users/ahmed/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -327,8 +327,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>D:/IM/RTGR/RTGR/build/RelWithDebInfo/exercise1.lib</ImportLibrary>
-      <ProgramDataBaseFile>D:/IM/RTGR/RTGR/bin/RelWithDebInfo/exercise1.pdb</ProgramDataBaseFile>
+      <ImportLibrary>D:/IM/RTGR/RTGR/build/RelWithDebInfo/exercise3.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/IM/RTGR/RTGR/bin/RelWithDebInfo/exercise3.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
     </Link>
     <ProjectReference>
@@ -393,7 +393,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="D:\IM\RTGR\RTGR\src\exercise1\main.cpp" />
+    <ClCompile Include="D:\IM\RTGR\RTGR\src\exercise3\main.cpp" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
