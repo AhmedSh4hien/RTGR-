@@ -2,8 +2,6 @@
 #ifndef ASSETS_H
 #define ASSETS_H
 
-
-
 #include <glad/glad.h> // holds all OpenGL type declarations
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
@@ -23,7 +21,7 @@ bool powerOf2(int n)
 
 // utility function for loading a 2D texture from file
 // ---------------------------------------------------
-unsigned int loadTexture(const char* path)
+unsigned int loadTexture(const char *path)
 {
     unsigned int textureID;
     glGenTextures(1, &textureID);
@@ -33,16 +31,17 @@ unsigned int loadTexture(const char* path)
     // tell stb_image.h to flip loaded texture's on the y-axis (before loading model).
     // stbi_set_flip_vertically_on_load(flipVertically);
 
-    unsigned char* data = stbi_load(path, &width, &height, &nrComponents, 0);
+    unsigned char *data = stbi_load(path, &width, &height, &nrComponents, 0);
     if (data)
     {
         try
         {
-            if (width <= 0 || height <= 0) throw "Texture is 0 in at least one dimension!";
+            if (width <= 0 || height <= 0)
+                throw "Texture is 0 in at least one dimension!";
 
             // test for power of 2
-            if (!powerOf2(width) || !powerOf2(height)) throw "Texture is not power of 2!"; // if this happens make sure that the texture has power of 2 dimensions (e.g., 512, 1024, ...)
-
+            if (!powerOf2(width) || !powerOf2(height))
+                throw "Texture is not power of 2!"; // if this happens make sure that the texture has power of 2 dimensions (e.g., 512, 1024, ...)
 
             GLenum format;
             if (nrComponents == 1)
@@ -58,12 +57,15 @@ unsigned int loadTexture(const char* path)
             glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
             glGenerateMipmap(GL_TEXTURE_2D);
 
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+            // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+            // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         }
-        catch (const char* emsg) {
+        catch (const char *emsg)
+        {
             std::cout << "Failed to use texture " << path << " because: " << emsg << endl;
         }
 
@@ -78,30 +80,33 @@ unsigned int loadTexture(const char* path)
     return textureID;
 }
 
-
 typedef std::map<const std::string, std::string> CubeMapPaths;
 // utility function for loading a cube map texture from file
 // ---------------------------------------------------
-unsigned int loadCubemap(CubeMapPaths cubemap) {
+unsigned int loadCubemap(CubeMapPaths cubemap)
+{
 
     unsigned int cubeTextureID;
     glGenTextures(1, &cubeTextureID);
     glBindTexture(GL_TEXTURE_CUBE_MAP, cubeTextureID);
 
-    std::string faces[6] = { "right", "left","top","bottom","front","back" };
+    std::string faces[6] = {"right", "left", "top", "bottom", "front", "back"};
 
-    //stbi_set_flip_vertically_on_load(true);
+    // stbi_set_flip_vertically_on_load(true);
 
     int width, height, nrComponents;
-    for (unsigned int i = 0; i < 6; i++) {
+    for (unsigned int i = 0; i < 6; i++)
+    {
         auto imgpath = cubemap[faces[i]];
-        unsigned char* image = stbi_load(imgpath.c_str(), &width, &height, &nrComponents, 0);
+        unsigned char *image = stbi_load(imgpath.c_str(), &width, &height, &nrComponents, 0);
 
-        if (image) {
+        if (image)
+        {
             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
             stbi_image_free(image);
         }
-        else {
+        else
+        {
             std::cout << "Cubemap texture failed to load for: " << faces[i] << std::endl;
         }
     }
@@ -129,16 +134,13 @@ const std::string TEX_FLIP = "setting-flip-texture";
 // a std::map (global variable) that stores all the assets that need to be loaded (i.e., textures and models). Also makes sure that assets are only loaded once!
 std::map<const std::string, std::any> loadedAssets;
 
-
-
-
 // Helper class for textures
 class Tex
 {
 private:
     unsigned int m_id; // OpenGL texture id to use with glBindTexture
 public:
-    Tex(unsigned int id) :m_id{ id } {}
+    Tex(unsigned int id) : m_id{id} {}
     operator unsigned int() { return m_id; } // cast operator
 };
 
@@ -149,7 +151,7 @@ private:
     std::string m_active;
 
     // checks if there is a TEX_FLIP="setting-flip-texture" key in the group and check if it is boolean
-    bool flipImagesForGroup(const std::string& group)
+    bool flipImagesForGroup(const std::string &group)
     {
         auto g = m_assets.at(group);
         if (g.find(TEX_FLIP) != g.end()) // key found
@@ -158,7 +160,7 @@ private:
             return false; // if key is not set we assume no flipping!
     }
 
-    bool GroupExists(const std::string& group)
+    bool GroupExists(const std::string &group)
     {
         if (m_assets.find(group) != m_assets.end()) // key found
             return true;
@@ -167,43 +169,43 @@ private:
     }
 
     template <class T>
-    T Convert(std::any& r)
+    T Convert(std::any &r)
     {
         try
         {
             return std::any_cast<T>(r);
         }
-        catch (const std::bad_any_cast& e)
+        catch (const std::bad_any_cast &e)
         {
             std::cout << e.what() << '\n';
             std::cout << "object is of type " << r.type().name() << " and cannot be cast to " << typeid(T).name() << std::endl;
             throw e;
-            //return T();
+            // return T();
         }
     }
 
     template <>
-    Model Convert(std::any& r)
+    Model Convert(std::any &r)
     {
         try
         {
-            auto path = std::any_cast<const char*>(r);
+            auto path = std::any_cast<const char *>(r);
 
             if (loadedAssets.count(path) <= 0) // not loaded yet (lazy init)
             {
                 std::cout << "Loading Model " << path << " ... ";
                 auto t1 = std::chrono::high_resolution_clock::now();
-                Model* m = new Model(path);
+                Model *m = new Model(path);
                 loadedAssets.insert(std::pair<const std::string, std::any>(path, *m));
                 auto t2 = std::chrono::high_resolution_clock::now();
                 auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
 
                 std::cout << "done (in " << (duration / 1000) << " milliseconds)." << std::endl;
             }
-            auto m = std::any_cast<Model&>(loadedAssets.at(path));
+            auto m = std::any_cast<Model &>(loadedAssets.at(path));
             return m;
         }
-        catch (const std::bad_any_cast& e)
+        catch (const std::bad_any_cast &e)
         {
             std::cout << e.what() << '\n';
             throw e;
@@ -211,10 +213,10 @@ private:
     }
 
     template <>
-    Tex Convert(std::any& r)
+    Tex Convert(std::any &r)
     {
         try
-        {   // handle 6 face cube maps
+        { // handle 6 face cube maps
             auto cubemap = std::any_cast<CubeMapPaths>(r);
             auto uniquename = "cubemap_" + cubemap["front"];
 
@@ -230,13 +232,12 @@ private:
             }
             auto c = std::any_cast<Tex>(loadedAssets.at(uniquename));
             return c;
-
         }
-        catch (const std::bad_any_cast& e_cubemap) // if not a cube map
+        catch (const std::bad_any_cast) // if not a cube map
         {
             try
-            {   // handle 2D textures
-                auto path = std::any_cast<const char*>(r);
+            { // handle 2D textures
+                auto path = std::any_cast<const char *>(r);
 
                 if (loadedAssets.count(path) <= 0) // not loaded yet (lazy init)
                 {
@@ -251,7 +252,7 @@ private:
                 auto t = std::any_cast<Tex>(loadedAssets.at(path));
                 return t;
             }
-            catch (const std::bad_any_cast& e)
+            catch (const std::bad_any_cast &e)
             {
                 std::cout << e.what() << '\n';
                 throw e;
@@ -259,18 +260,18 @@ private:
         }
     }
 
-public: 
-    AssetManager(const Assets assets) : m_assets{ assets } { m_active = m_assets.begin()->first;  }
+public:
+    AssetManager(const Assets assets) : m_assets{assets} { m_active = m_assets.begin()->first; }
 
-    template<class T>
-    T GetAsset(const std::string& group, const std::string &name)
+    template <class T>
+    T GetAsset(const std::string &group, const std::string &name)
     {
         return Convert<T>(m_assets.at(group).at(name));
     }
 
     // Textures need a specialized function, due to the possiblity of flipping it vertically
-    template<>
-    Tex GetAsset(const std::string& group, const std::string& name)
+    template <>
+    Tex GetAsset(const std::string &group, const std::string &name)
     {
         // Optionally tell stb_image.h to flip loaded texture's on the y-axis (before loading model).
         stbi_set_flip_vertically_on_load(flipImagesForGroup(group));
@@ -278,8 +279,8 @@ public:
         return Convert<Tex>(m_assets.at(group).at(name));
     }
 
-    template<class T>
-    T GetActiveAsset(const std::string& name)
+    template <class T>
+    T GetActiveAsset(const std::string &name)
     {
         return GetAsset<T>(m_active, name);
     }
@@ -287,25 +288,28 @@ public:
     std::vector<std::string> GetGroups() const
     {
         std::vector<std::string> keys;
-        for (auto const& amp : m_assets) { keys.push_back(amp.first); }
+        for (auto const &amp : m_assets)
+        {
+            keys.push_back(amp.first);
+        }
         return keys;
     }
 
-    void SetActiveGroup(const std::string& group)
+    void SetActiveGroup(const std::string &group)
     {
         // make sure the group exists!
-        if (!GroupExists(group)) return;
+        if (!GroupExists(group))
+            return;
         m_active = group;
     }
 
-    void SetActiveGroup(const int id) { SetActiveGroup(GetGroups().at(id));}
+    void SetActiveGroup(const int id) { SetActiveGroup(GetGroups().at(id)); }
     const std::string GetActiveGroup() { return m_active; }
-    const int GetActiveGroupId() { 
+    const int GetActiveGroupId()
+    {
         auto groups = GetGroups();
-        return std::distance(groups.begin(), std::find(groups.begin(), groups.end(), GetActiveGroup())); 
+        return (int)std::distance(groups.begin(), std::find(groups.begin(), groups.end(), GetActiveGroup()));
     }
-
 };
-
 
 #endif

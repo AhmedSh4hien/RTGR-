@@ -83,7 +83,7 @@ uniform sampler2D previousFrame;
 void main() {
     vec4 currentColor = texture(currentFrame, TexCoords);
     vec4 previousColor = texture(previousFrame, TexCoords);
-    FragColor = mix(currentColor, previousColor, 0.7); // Increase the blend factor for a stronger effect
+    FragColor = mix(currentColor, previousColor, 0.9); // Increase the blend factor for a stronger effect
 }
 )";
 
@@ -217,7 +217,6 @@ unsigned int rbo1, rbo2;
 unsigned int motionBlurShaderProgram, quadVAO, quadVBO;
 GLuint shaderProgram;
 
-// Function to compile shaders
 GLuint compileShader(GLenum type, const char* source) {
     GLuint shader = glCreateShader(type);
     glShaderSource(shader, 1, &source, nullptr);
@@ -230,6 +229,7 @@ GLuint compileShader(GLenum type, const char* source) {
         glGetShaderInfoLog(shader, 512, nullptr, infoLog);
         std::cerr << "Shader Compilation Error: " << infoLog << std::endl;
     }
+
     return shader;
 }
 
@@ -253,6 +253,25 @@ GLuint createShaderProgram(const char* vertexSource, const char* fragmentSource)
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
     return shaderProgram;
+}
+
+// Function to create noise texture
+GLuint createNoiseTexture(int width, int height) {
+    std::vector<GLfloat> noiseData(width * height * 3);
+    for (int i = 0; i < width * height * 3; ++i) {
+        noiseData[i] = static_cast<GLfloat>(rand()) / static_cast<GLfloat>(RAND_MAX);
+    }
+
+    GLuint noiseTexture;
+    glGenTextures(1, &noiseTexture);
+    glBindTexture(GL_TEXTURE_2D, noiseTexture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_FLOAT, noiseData.data());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    return noiseTexture;
 }
 
 // Mouse callback function
@@ -471,23 +490,6 @@ void renderClouds(glm::mat4 view, glm::mat4 projection) {
     glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
 }
 
-GLuint createNoiseTexture(int width, int height) {
-    std::vector<GLfloat> noiseData(width * height * 3);
-    for (int i = 0; i < width * height * 3; ++i) {
-        noiseData[i] = static_cast<GLfloat>(rand()) / static_cast<GLfloat>(RAND_MAX);
-    }
-
-    GLuint noiseTexture;
-    glGenTextures(1, &noiseTexture);
-    glBindTexture(GL_TEXTURE_2D, noiseTexture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_FLOAT, noiseData.data());
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    return noiseTexture;
-}
 
 
 int main() {
@@ -496,7 +498,7 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Floating Island", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(800, 600, "Floating Island", nullptr, nullptr);
     if (!window) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -575,7 +577,7 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Set the view and projection matrices
-        glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
         glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
         // Render scene
@@ -631,7 +633,7 @@ int main() {
             glEnable(GL_DEPTH_TEST);
         }
 
-        if (showFilmGrain) {
+                if (showFilmGrain) {
             glUseProgram(filmGrainShaderProgram);
             glBindVertexArray(quadVAO);
             glDisable(GL_DEPTH_TEST);
@@ -685,6 +687,7 @@ int main() {
     glfwTerminate();
     return 0;
 }
+
 void processInput(GLFWwindow* window) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
